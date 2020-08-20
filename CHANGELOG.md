@@ -1,7 +1,11 @@
 # Changelog
-## [New version] - [opened]
 
-**Add your changes here 
+**Add your changes here
+
+## [2.0.1] - 2020-08-20
+- Full compatibility with windows (cast double MathUtils and removed cast Node)
+- Full compatibility with new java versions
+- Added escaped file separator in file constants
 
 ## [2.0.0] - 2020-07-09
 In this version, you are able to access the http://localhost:8080 and use the web interface to optimize PLAs.
