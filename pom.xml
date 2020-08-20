@@ -26,6 +26,7 @@
         <module>modules/opla-core</module>
         <!-- <module>modules/opla-desktop-view</module> -->
         <module>modules/opla-api</module>
+        <module>modules/project-representation</module>
     </modules>
 
     <build>
