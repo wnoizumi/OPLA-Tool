@@ -1,15 +1,18 @@
 package br.otimizes.oplatool.architecture.representation.architectureControl;
 
-import br.otimizes.oplatool.architecture.exceptions.ClassNotFound;
-import br.otimizes.oplatool.architecture.helpers.UtilResources;
-import br.otimizes.oplatool.architecture.representation.*;
-import br.otimizes.oplatool.architecture.representation.Class;
-import br.otimizes.oplatool.architecture.representation.Package;
-import br.otimizes.oplatool.architecture.representation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import br.otimizes.oplatool.architecture.helpers.UtilResources;
+import br.otimizes.oplatool.architecture.representation.Architecture;
+import br.otimizes.oplatool.architecture.representation.Attribute;
+import br.otimizes.oplatool.architecture.representation.Class;
+import br.otimizes.oplatool.architecture.representation.Concern;
+import br.otimizes.oplatool.architecture.representation.Element;
+import br.otimizes.oplatool.architecture.representation.Interface;
+import br.otimizes.oplatool.architecture.representation.Method;
+import br.otimizes.oplatool.architecture.representation.Package;
 
 /**
  * This class has the implementation of all the method from Architecture that is used to find an specific element from architecture
@@ -36,89 +39,6 @@ public class ArchitectureFindElementControl {
             if (c.getName().equalsIgnoreCase(name)) {
                 return c;
             }
-        }
-        return null;
-    }
-
-    /**
-     * finf type smarty using its id
-     *
-     * @param architecture
-     * @param id
-     * @return
-     */
-    public TypeSmarty findTypeSMartyByID(Architecture architecture, String id) {
-        for (TypeSmarty typeSmarty : architecture.getTypes()) {
-            if (typeSmarty.getId().equals(id))
-                return typeSmarty;
-        }
-        return null;
-    }
-
-    /**
-     * search a type using its name from listTypesSMarty
-     * if not found, return Object type
-     *
-     * @param architecture
-     * @param name
-     * @return
-     */
-    public TypeSmarty findTypeSMartyByName(Architecture architecture, String name) {
-        for (TypeSmarty typeSmarty : architecture.getTypes()) {
-            if (typeSmarty.getName().equals(name))
-                return typeSmarty;
-        }
-        return findObjectType(architecture);
-    }
-
-    /**
-     * search a return type using its name from listTypesSMarty
-     * return void type if not has name
-     * if not found, return Object type
-     *
-     * @param architecture
-     * @param name
-     * @return
-     */
-    public TypeSmarty findReturnTypeSMartyByName(Architecture architecture, String name) {
-        if (name == null) {
-            return findVoidType(architecture);
-        }
-        if (name.length() == 0) {
-            return findVoidType(architecture);
-        }
-        for (TypeSmarty typeSmarty : architecture.getTypes()) {
-            //System.out.println(typeSmarty.getName());
-            if (typeSmarty.getName().equals(name))
-                return typeSmarty;
-        }
-        return findObjectType(architecture);
-    }
-
-    /**
-     * find an type Object in typesSMarty
-     *
-     * @param architecture
-     * @return
-     */
-    private TypeSmarty findObjectType(Architecture architecture) {
-        for (TypeSmarty typeSmarty : architecture.getTypes()) {
-            if (typeSmarty.getName().equals("Object"))
-                return typeSmarty;
-        }
-        return null;
-    }
-
-    /**
-     * find an type void in typesSMarty
-     *
-     * @param architecture
-     * @return
-     */
-    private TypeSmarty findVoidType(Architecture architecture) {
-        for (TypeSmarty typeSmarty : architecture.getTypes()) {
-            if (typeSmarty.getName().equals("void"))
-                return typeSmarty;
         }
         return null;
     }

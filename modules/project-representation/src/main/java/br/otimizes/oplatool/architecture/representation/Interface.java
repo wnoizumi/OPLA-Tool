@@ -28,8 +28,8 @@ public class Interface extends Element {
     private PatternsOperations patternsOperations;
 
 
-    public Interface(RelationshipsHolder relationshipHolder, String name, Variant variantType, String namespace, String id) {
-        super(name, variantType, "interface", namespace, id);
+    public Interface(RelationshipsHolder relationshipHolder, String name, String namespace, String id) {
+        super(name, "interface", namespace, id);
         setRelationshipHolder(relationshipHolder);
     }
 
@@ -68,17 +68,17 @@ public class Interface extends Element {
      * @param relationshipHolder
      */
     public Interface(RelationshipsHolder relationshipHolder, String name, Package packagee) {
-        this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), packagee.getName()), UtilResources.getRandonUUID());
+        this(relationshipHolder, name, UtilResources.createNamespace(ArchitectureHolder.getName(), packagee.getName()), UtilResources.getRandonUUID());
         this.setPatternOperations(new PatternsOperations());
     }
 
     public Interface(RelationshipsHolder relationshipHolder, String name) {
-        this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandonUUID());
+        this(relationshipHolder, name, UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandonUUID());
         this.setPatternOperations(new PatternsOperations());
     }
 
     public Interface(RelationshipsHolder relationshipHolder, String name, String id) {
-        this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), id);
+        this(relationshipHolder, name, UtilResources.createNamespace(ArchitectureHolder.getName(), name), id);
         this.setPatternOperations(new PatternsOperations());
     }
 
@@ -91,7 +91,7 @@ public class Interface extends Element {
      * @param id   -  ID para a interface
      */
     public Interface(RelationshipsHolder relationshipHolder, String name, String id, Package packagee) {
-        this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), packagee.getName()), id);
+        this(relationshipHolder, name, UtilResources.createNamespace(ArchitectureHolder.getName(), packagee.getName()), id);
         this.setPatternOperations(new PatternsOperations());
     }
 
@@ -125,7 +125,7 @@ public class Interface extends Element {
     }
 
     public Method createOperation(String operationName) throws Exception {
-        Method operation = new Method(operationName, false, null, "void", false, null, "", ""); //Receber id
+        Method operation = new Method(operationName, false, "void", false, null, "", ""); //Receber id
         methods.add(operation);
         return operation;
     }

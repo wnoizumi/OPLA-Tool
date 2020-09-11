@@ -115,17 +115,17 @@ public class Package extends Element {
      * @param variantType      - Qual o tipo ( {@link VariantType} ) da variante
      * @param parent           - Qual o {@link Element} pai
      */
-    public Package(RelationshipsHolder relationshipHolder, String name, Variant variantType, String namespace, String id) {
-        super(name, variantType, "package", namespace, id);
+    public Package(RelationshipsHolder relationshipHolder, String name, String namespace, String id) {
+        super(name, "package", namespace, id);
         setRelationshipHolder(relationshipHolder);
     }
 
     public Package(RelationshipsHolder relationshipHolder, String name) {
-        this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandonUUID());
+        this(relationshipHolder, name, UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandonUUID());
     }
 
     public Package(RelationshipsHolder relationshipHolder, String name, String id) {
-        this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), id);
+        this(relationshipHolder, name, UtilResources.createNamespace(ArchitectureHolder.getName(), name), id);
     }
 
     /**

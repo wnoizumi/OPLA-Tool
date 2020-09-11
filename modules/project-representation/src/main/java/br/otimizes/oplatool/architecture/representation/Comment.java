@@ -8,12 +8,12 @@ public class Comment extends Element {
     private String value;
 
     public Comment(String name, String typeElement) {
-        super(name, null, typeElement, null, null);
+        super(name, typeElement, null, null);
         if (typeElement == null) super.setTypeElement("comment");
     }
 
     public Comment(String name) {
-        super(name, null, "comment", null, null);
+        super(name, "comment", null, null);
     }
 
     @Override

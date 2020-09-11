@@ -17,59 +17,59 @@
 
 	<dependencies>
 		<!-- UML Dependencies -->
-		<dependency>
-			<groupId>org.eclipse.birt.runtime</groupId>
-			<artifactId>org.eclipse.core.resources</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.birt.runtime</groupId>
-			<artifactId>org.eclipse.core.runtime</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.birt.runtime</groupId>
-			<artifactId>org.eclipse.emf.ecore</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.birt.runtime</groupId>
-			<artifactId>org.eclipse.emf.ecore.xmi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>org.eclipse.emf.mapping.ecore2xml</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.uml2.profile.l3</groupId>
-			<artifactId>uml2-profilel3</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.uml2.profile.l2</groupId>
-			<artifactId>uml2-profilel2</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.uml2.common</groupId>
-			<artifactId>uml2-common</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.yaml</groupId>
-			<artifactId>snakeyaml</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.uml2.types</groupId>
-			<artifactId>uml2-types</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.birt.runtime</groupId>
-			<artifactId>org.eclipse.emf.common</artifactId>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.eclipse.birt.runtime</groupId> -->
+<!-- 			<artifactId>org.eclipse.core.resources</artifactId> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.eclipse.birt.runtime</groupId> -->
+<!-- 			<artifactId>org.eclipse.core.runtime</artifactId> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.eclipse.birt.runtime</groupId> -->
+<!-- 			<artifactId>org.eclipse.emf.ecore</artifactId> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.eclipse.birt.runtime</groupId> -->
+<!-- 			<artifactId>org.eclipse.emf.ecore.xmi</artifactId> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.eclipse.emf</groupId> -->
+<!-- 			<artifactId>org.eclipse.emf.mapping.ecore2xml</artifactId> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.uml2.profile.l3</groupId> -->
+<!-- 			<artifactId>uml2-profilel3</artifactId> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.uml2.profile.l2</groupId> -->
+<!-- 			<artifactId>uml2-profilel2</artifactId> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.uml2.common</groupId> -->
+<!-- 			<artifactId>uml2-common</artifactId> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.yaml</groupId> -->
+<!-- 			<artifactId>snakeyaml</artifactId> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.uml2.types</groupId> -->
+<!-- 			<artifactId>uml2-types</artifactId> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.eclipse.birt.runtime</groupId> -->
+<!-- 			<artifactId>org.eclipse.emf.common</artifactId> -->
+<!-- 		</dependency> -->
 
-		<dependency>
-			<groupId>org.uml2.uml24</groupId>
-			<artifactId>uml2-uml24</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.uml2.resources4</groupId>
-			<artifactId>uml2-resources</artifactId>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.uml2.uml24</groupId> -->
+<!-- 			<artifactId>uml2-uml24</artifactId> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.uml2.resources4</groupId> -->
+<!-- 			<artifactId>uml2-resources</artifactId> -->
+<!-- 		</dependency> -->
 		<!-- Others Dependencies -->
 		<dependency>
 			<groupId>uk.com.robust-it</groupId>
@@ -116,12 +116,12 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-collections4</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>br.otimizes.oplatool</groupId>
-			<artifactId>opla-domain</artifactId>
-			<version>${project.version}</version>
-			<scope>compile</scope>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>br.otimizes.oplatool</groupId> -->
+<!-- 			<artifactId>opla-domain</artifactId> -->
+<!-- 			<version>${project.version}</version> -->
+<!-- 			<scope>compile</scope> -->
+<!-- 		</dependency> -->
 
 		<dependency>
 			<groupId>org.eclipse.jdt</groupId>

@@ -3,7 +3,6 @@ package br.otimizes.oplatool.architecture.representation;
 import br.otimizes.oplatool.architecture.exceptions.ConcernNotFoundException;
 import com.rits.cloning.Cloner;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.eclipse.uml2.uml.Interface;
 
 import java.io.Serializable;
 import java.util.*;
@@ -20,8 +19,6 @@ public abstract class Element implements Serializable {
 
     protected String id;
     private String name;
-    private VariationPoint variationPoint;
-    private Variant variant;
     private Set<Concern> concerns = new HashSet<>();
     private Set<Comment> comments = new HashSet<>();
     private Architecture architecture;
@@ -39,10 +36,9 @@ public abstract class Element implements Serializable {
     private boolean isStatic;
     private boolean isFinal;
 
-    public Element(String name, Variant variant, String typeElement, String namespace, String id) {
+    public Element(String name, String typeElement, String namespace, String id) {
         setId(id);
         setName(name);
-        setVariant(variant);
         setTypeElement(typeElement);
         setNamespace(namespace);
     }
@@ -180,18 +176,6 @@ public abstract class Element implements Serializable {
         this.name = name;
     }
 
-    public Boolean isVariationPoint() {
-        return this.getVariationPoint() != null;
-    }
-
-    public Variant getVariant() {
-        return variant;
-    }
-
-    public void setVariant(Variant variant) {
-        this.variant = variant;
-    }
-
     @Override
     public String toString() {
         return getName();
@@ -258,20 +242,6 @@ public abstract class Element implements Serializable {
 
     public Architecture getArchitecture() {
         return architecture;
-    }
-
-    /**
-     * @return the variationPoint
-     */
-    public VariationPoint getVariationPoint() {
-        return variationPoint;
-    }
-
-    /**
-     * @param variationPoint the variationPoint to set
-     */
-    public void setVariationPoint(VariationPoint variationPoint) {
-        this.variationPoint = variationPoint;
     }
 
     public boolean belongsToGeneralization() {

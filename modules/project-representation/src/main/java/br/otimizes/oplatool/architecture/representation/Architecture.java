@@ -1,22 +1,12 @@
 package br.otimizes.oplatool.architecture.representation;
 
-import br.otimizes.oplatool.architecture.exceptions.ClassNotFound;
-import br.otimizes.oplatool.architecture.flyweights.VariabilityFlyweight;
-import br.otimizes.oplatool.architecture.flyweights.VariantFlyweight;
-import br.otimizes.oplatool.architecture.flyweights.VariationPointFlyweight;
-import br.otimizes.oplatool.architecture.generate.GenerateArchitecture;
-import br.otimizes.oplatool.architecture.generate.GenerateArchitectureSMarty;
 import br.otimizes.oplatool.architecture.representation.architectureControl.ArchitectureFindElementControl;
 import br.otimizes.oplatool.architecture.representation.architectureControl.ArchitectureRemoveElementControl;
 import br.otimizes.oplatool.architecture.representation.relationship.DependencyRelationship;
 import br.otimizes.oplatool.architecture.representation.relationship.RealizationRelationship;
 import br.otimizes.oplatool.architecture.representation.relationship.Relationship;
 import br.otimizes.oplatool.architecture.helpers.UtilResources;
-import br.otimizes.oplatool.architecture.smarty.util.SaveStringToFile;
 import br.otimizes.oplatool.common.Variable;
-import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
-import br.otimizes.oplatool.domain.config.FileConstants;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rits.cloning.Cloner;
 import org.apache.log4j.Logger;
 
@@ -28,12 +18,6 @@ import java.util.stream.Collectors;
  *
  * @author edipofederle<edipofederle @ gmail.com>
  */
-@JsonIgnoreProperties({"elements", "elementsWithPackages", "allConcerns", "allPackages", "allMethods", "packages",
-        "allPackagesAllowedMofification", "interfaces", "allInterfaces", "classes", "allClasses",
-        "allVariationPoints", "allVariants", "allVariabilities", "freezedElements", "LOGGER", "relationshipHolder",
-        "atributtes", "allAtributtes", "upperBound", "lowerBound", "variableType", "value", "concerns", "types",
-        "variationPoints", "variabilities", "variants", "editableListPackages", "editableListClasses", "editableListPackages",
-        "editableListInterfaces", "relationships", "implementedInterfaces", "createClass", "allModifiableInterfaces", "allModifiableClasses"})
 public class Architecture extends Variable {
 
     private static Logger LOGGER = Logger.getLogger(Architecture.class);
@@ -47,17 +31,11 @@ public class Architecture extends Variable {
     private boolean appliedPatterns;
     private RelationshipsHolder relationshipHolder = new RelationshipsHolder();
     private ArrayList<Concern> concerns = new ArrayList<>();
-    private ArrayList<TypeSmarty> types = new ArrayList<>();
-    private boolean isSMarty = false;
-    private boolean toSMarty = false;   // variável para dizer se utiliza o decoding para SMarty ou não
     private String projectID = "5b729c3f25e758ce87cf8d710761283c";
     private String projectName = "Project0";
     private String projectVersion = "1.0";
     private String diagramID = "DIAGRAM#1";
     private String diagramName = "DIAGRAM#1";
-    private List<VariationPoint> variationPoints = new ArrayList<>();
-    private List<Variability> variabilities = new ArrayList<>();
-    private List<Variant> variants = new ArrayList<>();
 
     public Architecture(String name) {
         setName(name);
@@ -269,42 +247,6 @@ public class Architecture extends Variable {
             }
         }
         return interfacesDup;
-    }
-
-    public ArrayList<TypeSmarty> getTypes() {
-        return types;
-    }
-
-    public void setTypes(ArrayList<TypeSmarty> types) {
-        this.types = types;
-    }
-
-    public TypeSmarty findTypeSMartyByID(String id) {
-        return ArchitectureFindElementControl.getInstance().findTypeSMartyByID(this, id);
-    }
-
-    public TypeSmarty findTypeSMartyByName(String name) {
-        return ArchitectureFindElementControl.getInstance().findTypeSMartyByName(this, name);
-    }
-
-    public TypeSmarty findReturnTypeSMartyByName(String name) {
-        return ArchitectureFindElementControl.getInstance().findReturnTypeSMartyByName(this, name);
-    }
-
-    public boolean isSMarty() {
-        return isSMarty;
-    }
-
-    public void setSMarty(boolean SMarty) {
-        isSMarty = SMarty;
-    }
-
-    public boolean isToSMarty() {
-        return toSMarty;
-    }
-
-    public void setToSMarty(boolean toSMarty) {
-        this.toSMarty = toSMarty;
     }
 
     public String getProjectID() {
@@ -629,32 +571,6 @@ public class Architecture extends Variable {
         ArchitectureRemoveElementControl.getInstance().removeClass(this, klass);
     }
 
-    public List<VariationPoint> getAllVariationPoints() {
-        if (isSMarty) {
-            return variationPoints;
-        }
-        return VariationPointFlyweight.getInstance().getVariationPoints();
-    }
-
-    public List<Variant> getAllVariants() {
-        if (isSMarty) {
-            return variants;
-        }
-        return VariantFlyweight.getInstance().getVariants();
-    }
-
-    /**
-     * return a list of variability. if input is smty, return a local list from architecture, else use flyweight
-     *
-     * @return
-     */
-    public List<Variability> getAllVariabilities() {
-        if (isSMarty) {
-            return variabilities;
-        }
-        return VariabilityFlyweight.getInstance().getVariabilities();
-    }
-
     public Class findClassById(String idClass) {
         return ArchitectureFindElementControl.getInstance().findClassById(this, idClass);
     }
@@ -865,52 +781,6 @@ public class Architecture extends Variable {
 
     public Package findPackageOfElementID(String id) {
         return ArchitectureFindElementControl.getInstance().findPackageOfElement(this, id);
-    }
-
-    /**
-     * save an architecture to output
-     * if toSMarty is true, save to .smty format, else save to .uml
-     *
-     * @param architecture - target architecture
-     * @param pathToSave   - name of the output file
-     * @param i            -
-     */
-    public void save(Architecture architecture, String pathToSave, String i) {
-        if (this.toSMarty) {
-            GenerateArchitectureSMarty generate = new GenerateArchitectureSMarty();
-            generate.generate(architecture, pathToSave + architecture.getName() + i);
-        } else {
-            GenerateArchitecture generate = new GenerateArchitecture();
-            generate.generate(architecture, pathToSave + architecture.getName() + i);
-        }
-    }
-
-    /**
-     * save an architecture in .smty format without consider the format of input architecture
-     *
-     * @param architecture - target architecture
-     * @param pathToSave   - name of output file
-     */
-    public void saveToSMarty(Architecture architecture, String pathToSave) {
-        GenerateArchitectureSMarty generate = new GenerateArchitectureSMarty();
-        generate.generate(architecture, pathToSave);
-    }
-
-    // open a temporary PLA in execution. Stop execution of OPLA-Tool while PLA is open in SMarty Modeling
-    public void openTempArchitecture() {
-        SaveStringToFile.getInstance().createTempDir();
-        saveToSMarty(this, "TEMP/TEMP");
-        System.out.println("Saved");
-        try {
-            System.out.println(ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + "TEMP" + FileConstants.FILE_SEPARATOR + "TEMP.smty");
-            Process proc = Runtime.getRuntime().exec("java -jar SMartyModeling.jar " + ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + "TEMP" + FileConstants.FILE_SEPARATOR + "TEMP.smty");
-            //Process proc = Runtime.getRuntime().exec("java -jar SMartyModeling.jar");
-            proc.waitFor();
-        } catch (Exception ex) {
-            System.out.println("Exception Open");
-            System.out.println(ex.getStackTrace());
-
-        }
     }
 
     /**

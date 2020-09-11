@@ -2,11 +2,7 @@ package br.otimizes.oplatool.architecture.representation;
 
 import br.otimizes.oplatool.architecture.exceptions.AttributeNotFoundException;
 import br.otimizes.oplatool.architecture.exceptions.MethodNotFoundException;
-import br.otimizes.oplatool.architecture.flyweights.VariantFlyweight;
 import br.otimizes.oplatool.architecture.helpers.UtilResources;
-import br.otimizes.oplatool.architecture.representation.relationship.*;
-import br.otimizes.oplatool.architecture.papyrus.touml.Types.Type;
-import br.otimizes.oplatool.architecture.papyrus.touml.VisibilityKind;
 import br.otimizes.oplatool.architecture.representation.relationship.*;
 import com.rits.cloning.Cloner;
 import org.apache.log4j.LogManager;
@@ -34,22 +30,22 @@ public class Class extends Element {
     private PatternsOperations patternsOperations;
     private RelationshipsHolder relationshipHolder;
 
-    public Class(RelationshipsHolder relationshipHolder, String name, Variant variantType, boolean isAbstract,
+    public Class(RelationshipsHolder relationshipHolder, String name, boolean isAbstract,
                  String namespace, String id) {
-        super(name, variantType, "klass", namespace, id);
+        super(name, "klass", namespace, id);
         setAbstract(isAbstract);
         setRelationshipHolder(relationshipHolder);
         this.setPatternOperations(new PatternsOperations());
     }
 
     public Class(RelationshipsHolder relationshipHolder, String name, boolean isAbstract) {
-        this(relationshipHolder, name, null, isAbstract, UtilResources.createNamespace(ArchitectureHolder.getName(),
+        this(relationshipHolder, name, isAbstract, UtilResources.createNamespace(ArchitectureHolder.getName(),
                 name), UtilResources.getRandonUUID());
         this.setPatternOperations(new PatternsOperations());
     }
 
     public Class(RelationshipsHolder relationshipHolder, String name, boolean isAbstract, String packageName) {
-        this(relationshipHolder, name, null, isAbstract, UtilResources.createNamespace(ArchitectureHolder.getName(),
+        this(relationshipHolder, name, isAbstract, UtilResources.createNamespace(ArchitectureHolder.getName(),
                 packageName), UtilResources.getRandonUUID());
         this.setPatternOperations(new PatternsOperations());
     }
@@ -142,14 +138,6 @@ public class Class extends Element {
             }
         }
         return  false;
-    }
-
-    public Attribute createAttribute(String name, Type type, VisibilityKind visibility) {
-        String id = UtilResources.getRandonUUID();
-        Attribute a = new Attribute(name, visibility.toString(), type.getName(), ArchitectureHolder.getName() + "::"
-                + this.getName(), id);
-        addExternalAttribute(a);
-        return a;
     }
 
     public void setAttribute(Attribute attr) {
@@ -339,22 +327,6 @@ public class Class extends Element {
     }
 
     public Object getAllStereotype() {
-        return null;
-    }
-
-    /**
-     * Retorna o tipo de variant (ex: alternative_OR).<br/>
-     * <p>
-     * Retorna null se não existir
-     *
-     * @return String (ex: alternative_OR).
-     */
-    public String getVariantType() {
-        for (Variant v : VariantFlyweight.getInstance().getVariants()) {
-            if (v.getName().equalsIgnoreCase(this.getName()))
-                return v.getVariantType();
-        }
-
         return null;
     }
 

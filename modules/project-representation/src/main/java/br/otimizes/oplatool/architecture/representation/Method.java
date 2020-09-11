@@ -21,19 +21,19 @@ public class Method extends Element {
     private boolean isConstructor;
     private String visibility;
 
-    public Method(String name, Variant variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod, String namespace, String id) {
-        super(name, variantType, "method", namespace, id);
+    public Method(String name, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod, String namespace, String id) {
+        super(name, "method", namespace, id);
         setReturnType(returnType);
         setAbstract(isAbstract);
         setParams(paramsMethod);
     }
 
-    public Method(String name, Boolean isVariationPoint, VariantType variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod, String namespace, String id) {
-        this(name, null, returnType, isAbstract, paramsMethod, namespace, id);
+    public Method(String name, Boolean isVariationPoint, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod, String namespace, String id) {
+        this(name, returnType, isAbstract, paramsMethod, namespace, id);
     }
 
     public Method(String name, String type, String className, boolean isAbstract, String id) {
-        super(name, null, "method", UtilResources.createNamespace(ArchitectureHolder.getName(), className), id);
+        super(name, "method", UtilResources.createNamespace(ArchitectureHolder.getName(), className), id);
         setReturnType(type);
         setAbstract(isAbstract);
     }

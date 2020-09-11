@@ -16,15 +16,15 @@ public class Attribute extends Element {
     private String visibilityKind;
     private boolean generatVisualAttribute;
 
-    public Attribute(String name, String visibilityKind, Variant variantType, String type, String namesapce, String id, boolean shouldGenerateVisualAttribute) {
-        super(name, variantType, "attribute", namesapce, id);
+    public Attribute(String name, String visibilityKind, String type, String namesapce, String id, boolean shouldGenerateVisualAttribute) {
+        super(name, "attribute", namesapce, id);
         setType(type);
         setVisibilityKind(visibilityKind);
         setGeneratVisualAttribute(shouldGenerateVisualAttribute);
     }
 
     public Attribute(String name, String visibilityKind, String type, String namespace, String id) {
-        this(name, visibilityKind, null, type, namespace, id, true);
+        this(name, visibilityKind, type, namespace, id, true);
     }
 
     private void setVisibilityKind(String visibilityKind) {

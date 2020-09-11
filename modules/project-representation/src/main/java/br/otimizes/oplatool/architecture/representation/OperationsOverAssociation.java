@@ -95,7 +95,7 @@ public class OperationsOverAssociation {
      */
     public void createAssociationClass(Set<Attribute> listAttrs, Set<Method> listMethods, Element owner, Element klass, String associationClassName) {
         String namespace = UtilResources.createNamespace(ArchitectureHolder.getName(), "AssociationClass");
-        Class asClass = new Class(relationshipHolder, associationClassName, null, false, namespace, UtilResources.getRandonUUID());
+        Class asClass = new Class(relationshipHolder, associationClassName, false, namespace, UtilResources.getRandonUUID());
 
         for (Attribute a : listAttrs)
             asClass.addExternalAttribute(a);

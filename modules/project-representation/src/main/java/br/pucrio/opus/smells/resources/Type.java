@@ -144,5 +144,11 @@ public class Type extends Resource {
 	public String toString() {
 		return "Type [fqn=" + getFullyQualifiedName() + "]";
 	}
+
+	public boolean isAbstract() {
+		TypeDeclaration typeDeclaration = (TypeDeclaration)getNode();
+		int modifiers = typeDeclaration.getModifiers(); 
+		return Modifier.isAbstract(modifiers);
+	}
 	
 }
