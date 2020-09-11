@@ -7,6 +7,7 @@ import java.util.List;
 
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Class;
+import br.otimizes.oplatool.architecture.representation.Package;
 import br.pucrio.opus.smells.resources.JavaFilesFinder;
 import br.pucrio.opus.smells.resources.SourceFile;
 import br.pucrio.opus.smells.resources.SourceFilesLoader;
@@ -22,17 +23,21 @@ public class ArchitectureBuilderJava {
 	public Architecture create(String projectName, List<String> sourcePaths) throws IOException {
 		
 		Architecture architecture = new Architecture(projectName);
-		//TODO: Caso sejam desncessários, remover os tres comandos a seguir
-		architecture.setProjectID(projectName);
 		architecture.setProjectName(projectName);
-		architecture.setProjectVersion("1");
-		
 		
 		List<Type> allTypes = getAllTypes(sourcePaths);
 		
 		for (Type type : allTypes) {
 			Class klass = new Class(null, type.getFullyQualifiedName(),type.isAbstract());
-			architecture.addExternalClass(klass);
+			
+			String packageName = type.getPackageName();
+			if (!packageName.isEmpty()) {
+				Package _package = new Package(null, packageName);
+				architecture.addPackage(_package);
+				_package.addExternalClass(klass);
+			} else {
+				architecture.addExternalClass(klass);
+			}
 		}
 		
 		

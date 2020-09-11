@@ -151,4 +151,22 @@ public class Type extends Resource {
 		return Modifier.isAbstract(modifiers);
 	}
 	
+	public String getPackageName() {
+		String qualifiedName = getFullyQualifiedName();
+		String[] splitedName = qualifiedName.split("\\.");
+		
+		if (splitedName.length == 0)
+			return "";
+		
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < splitedName.length - 1; i++) {
+			builder.append(splitedName[i]);
+			if (i < splitedName.length - 2)
+				builder.append(".");
+		}
+		
+		return builder.toString();
+	}
+	
+	
 }
