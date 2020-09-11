@@ -10,7 +10,10 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+import org.eclipse.jdt.core.dom.FieldDeclaration;
 
+import br.pucrio.opus.smells.ast.visitors.FieldCollector;
 import br.pucrio.opus.smells.ast.visitors.MethodCollector;
 
 public class Type extends Resource {
@@ -18,6 +21,8 @@ public class Type extends Resource {
 	private List<Method> methods;
 	
 	private transient Set<Type> children;
+
+	private List<Field> fields;
 	
 	public TypeDeclaration getNodeAsTypeDeclaration() {
 		return (TypeDeclaration)getNode();
@@ -106,11 +111,23 @@ public class Type extends Resource {
 			setFullyQualifiedName(fqn);
 		}
 		this.searchForMethods();
+		this.searchForFields();
 		
 		//register itself in the ParenthoodRegistry 
 		ParenthoodRegistry.getInstance().registerChild(this);
 	}
 	
+	private void searchForFields() {
+		this.fields = new ArrayList<>();
+		FieldCollector visitor = new FieldCollector();
+		this.getNode().accept(visitor);
+		List<VariableDeclarationFragment> fieldsDeclarations = visitor.getNodesCollected();
+		for (VariableDeclarationFragment fieldDeclaration : fieldsDeclarations) {
+			Field field = new Field(getSourceFile(), fieldDeclaration);
+			this.fields.add(field);
+		}
+	}
+
 	private void searchForMethods() {
 		this.methods = new ArrayList<>();
 		MethodCollector visitor = new MethodCollector();
@@ -132,8 +149,22 @@ public class Type extends Resource {
 		return null;
 	}
 	
+	public Field findFieldByName(String name) {
+		for (Field field : this.fields) {
+			String toBeFound = this.getFullyQualifiedName() + "." + name;
+			if (field.getFullyQualifiedName().equals(toBeFound)) {
+				return field;
+			}
+		}
+		return null;
+	}
+	
 	public List<Method> getMethods() {
 		return methods;
+	}
+	
+	public List<Field> getFields() {
+		return fields;
 	}
 	
 	public Set<Type> getChildren() {
@@ -167,6 +198,8 @@ public class Type extends Resource {
 		
 		return builder.toString();
 	}
-	
-	
+
+	public boolean isInterface() {
+		return getKind().contains("interface");
+	}
 }

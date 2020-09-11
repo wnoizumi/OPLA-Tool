@@ -24,6 +24,7 @@ public class Interface extends Element {
     static Logger LOGGER = LogManager.getLogger(Interface.class.getName());
     private final Set<Method> methods = new HashSet<Method>();
     private final Set<Method> operations = new HashSet<Method>();
+    private final Set<Attribute> attributes = new HashSet<Attribute>();
     private RelationshipsHolder relationshipHolder;
     private PatternsOperations patternsOperations;
 
@@ -386,6 +387,20 @@ public class Interface extends Element {
 
         }
         targetInterface.setRelationshipHolder(newRelation);
+    }
+
+	public boolean addExternalAttribute(Attribute attribute) {
+		 if (attributes.add(attribute)) {
+	            LOGGER.info("Atributo " + attribute.getName() + " adicionado na interface " + this.getName());
+	            return true;
+	        } else {
+	            LOGGER.info("TENTOU adicionar atributo: " + attribute.getName() + " na interface: " + this.getName() + " porém não consegiu");
+	            return false;
+	        }
+	}
+	
+	public Set<Attribute> getAttributes() {
+        return Collections.unmodifiableSet(attributes);
     }
 
 }
