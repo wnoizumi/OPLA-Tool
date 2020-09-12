@@ -9,15 +9,15 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import br.pucrio.opus.smells.ast.visitors.TypeDeclarationCollector;
 
-public class SourceFile {
+public class SourceFileJava {
 
 	private File file;
 	
 	private transient CompilationUnit compilationUnit;
 	
-	private transient List<Type> types;
+	private transient List<TypeJava> types;
 	
-	public SourceFile(File file, CompilationUnit compilationUnit) {
+	public SourceFileJava(File file, CompilationUnit compilationUnit) {
 		this.file = file;
 		this.compilationUnit = compilationUnit;
 		this.searchForTypes();
@@ -29,12 +29,12 @@ public class SourceFile {
 		this.compilationUnit.accept(visitor);
 		List<TypeDeclaration> typeDeclarations = visitor.getNodesCollected();
 		for (TypeDeclaration typeDeclaration : typeDeclarations) {
-			Type type = new Type(this, typeDeclaration);
+			TypeJava type = new TypeJava(this, typeDeclaration);
 			this.types.add(type);
 		}
 	}
 	
-	public List<Type> getTypes() {
+	public List<TypeJava> getTypes() {
 		return types;
 	}
 

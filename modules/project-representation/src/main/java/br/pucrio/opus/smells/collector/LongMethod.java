@@ -6,7 +6,7 @@ import java.util.List;
 
 import br.pucrio.opus.smells.metrics.AggregateMetricValues;
 import br.pucrio.opus.smells.metrics.MetricName;
-import br.pucrio.opus.smells.resources.Resource;
+import br.pucrio.opus.smells.resources.ResourceJava;
 
 /**
  * All methods having LOCs higher than the average of the system.
@@ -15,7 +15,7 @@ import br.pucrio.opus.smells.resources.Resource;
 public class LongMethod extends SmellDetector {
 	
 	@Override
-	public List<Smell> detect(Resource resource) {
+	public List<Smell> detect(ResourceJava resource) {
 		AggregateMetricValues aggregate = AggregateMetricValues.getInstance();
 		Double methodLoc = resource.getMetricValue(MetricName.MLOC);
 		Double avgMLOC = aggregate.getAverageValue(MetricName.MLOC);

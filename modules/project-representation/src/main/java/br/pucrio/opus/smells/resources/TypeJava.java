@@ -16,13 +16,13 @@ import org.eclipse.jdt.core.dom.FieldDeclaration;
 import br.pucrio.opus.smells.ast.visitors.FieldCollector;
 import br.pucrio.opus.smells.ast.visitors.MethodCollector;
 
-public class Type extends Resource {
+public class TypeJava extends ResourceJava {
 
-	private List<Method> methods;
+	private List<MethodJava> methods;
 	
-	private transient Set<Type> children;
+	private transient Set<TypeJava> children;
 
-	private List<Field> fields;
+	private List<FieldJava> fields;
 	
 	public TypeDeclaration getNodeAsTypeDeclaration() {
 		return (TypeDeclaration)getNode();
@@ -48,7 +48,7 @@ public class Type extends Resource {
 			return true;
 		}
 		
-		for (Method method : this.methods) {
+		for (MethodJava method : this.methods) {
 			if (method.isSmelly()) {
 				return true;
 			}
@@ -58,8 +58,8 @@ public class Type extends Resource {
 	}
 	
 	public void removeAllNonSmellyMethods() {
-		List<Method> toRemove = new ArrayList<>();
-		for (Method method : this.methods) {
+		List<MethodJava> toRemove = new ArrayList<>();
+		for (MethodJava method : this.methods) {
 			if (!method.isSmelly()) {
 				toRemove.add(method);
 			}
@@ -101,7 +101,7 @@ public class Type extends Resource {
 		this.setKind(buffer.toString());
 	}
 	
-	public Type(SourceFile sourceFile, TypeDeclaration typeDeclaration) {
+	public TypeJava(SourceFileJava sourceFile, TypeDeclaration typeDeclaration) {
 		super(sourceFile, typeDeclaration);
 		this.children = new HashSet<>();
 		
@@ -123,7 +123,7 @@ public class Type extends Resource {
 		this.getNode().accept(visitor);
 		List<VariableDeclarationFragment> fieldsDeclarations = visitor.getNodesCollected();
 		for (VariableDeclarationFragment fieldDeclaration : fieldsDeclarations) {
-			Field field = new Field(getSourceFile(), fieldDeclaration);
+			FieldJava field = new FieldJava(getSourceFile(), fieldDeclaration);
 			this.fields.add(field);
 		}
 	}
@@ -134,13 +134,13 @@ public class Type extends Resource {
 		this.getNode().accept(visitor);
 		List<MethodDeclaration> methodsDeclarations = visitor.getNodesCollected();
 		for (MethodDeclaration methodDeclaration : methodsDeclarations) {
-			Method method = new Method(getSourceFile(), methodDeclaration);
+			MethodJava method = new MethodJava(getSourceFile(), methodDeclaration);
 			this.methods.add(method);
 		}
 	}
 	
-	public Method findMethodByName(String name) {
-		for (Method method : this.methods) {
+	public MethodJava findMethodByName(String name) {
+		for (MethodJava method : this.methods) {
 			String toBeFound = this.getFullyQualifiedName() + "." + name;
 			if (method.getFullyQualifiedName().equals(toBeFound)) {
 				return method;
@@ -149,8 +149,8 @@ public class Type extends Resource {
 		return null;
 	}
 	
-	public Field findFieldByName(String name) {
-		for (Field field : this.fields) {
+	public FieldJava findFieldByName(String name) {
+		for (FieldJava field : this.fields) {
 			String toBeFound = this.getFullyQualifiedName() + "." + name;
 			if (field.getFullyQualifiedName().equals(toBeFound)) {
 				return field;
@@ -159,15 +159,15 @@ public class Type extends Resource {
 		return null;
 	}
 	
-	public List<Method> getMethods() {
+	public List<MethodJava> getMethods() {
 		return methods;
 	}
 	
-	public List<Field> getFields() {
+	public List<FieldJava> getFields() {
 		return fields;
 	}
 	
-	public Set<Type> getChildren() {
+	public Set<TypeJava> getChildren() {
 		return children;
 	}
 	

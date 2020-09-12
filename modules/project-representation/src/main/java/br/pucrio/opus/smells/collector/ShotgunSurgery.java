@@ -6,7 +6,7 @@ import java.util.List;
 
 import br.pucrio.opus.smells.metrics.MetricName;
 import br.pucrio.opus.smells.metrics.Thresholds;
-import br.pucrio.opus.smells.resources.Resource;
+import br.pucrio.opus.smells.resources.ResourceJava;
 
 /**
  * Shotgun Surgery resembles Divergent Change but is actually the opposite smell. 
@@ -18,7 +18,7 @@ import br.pucrio.opus.smells.resources.Resource;
 public class ShotgunSurgery extends SmellDetector {
 	
 	@Override
-	public List<Smell> detect(Resource resource) {
+	public List<Smell> detect(ResourceJava resource) {
 		Double cc = resource.getMetricValue(MetricName.CC);
 		Double cm = resource.getMetricValue(MetricName.ChangingMethods);
 		if (cc == null || cm == null) {

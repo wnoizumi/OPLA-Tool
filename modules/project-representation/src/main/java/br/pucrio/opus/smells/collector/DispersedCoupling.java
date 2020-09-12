@@ -6,7 +6,7 @@ import java.util.List;
 
 import br.pucrio.opus.smells.metrics.MetricName;
 import br.pucrio.opus.smells.metrics.Thresholds;
-import br.pucrio.opus.smells.resources.Resource;
+import br.pucrio.opus.smells.resources.ResourceJava;
 
 /**
  * Dispersed Coupling is the case of an operation which is excessively 
@@ -17,7 +17,7 @@ import br.pucrio.opus.smells.resources.Resource;
 public class DispersedCoupling extends SmellDetector {
 	
 	@Override
-	public List<Smell> detect(Resource resource) {
+	public List<Smell> detect(ResourceJava resource) {
 		Double cint = resource.getMetricValue(MetricName.CINT);
 		Double cdisp = resource.getMetricValue(MetricName.CDISP);
 		Double maxNesting = resource.getMetricValue(MetricName.MaxNesting);

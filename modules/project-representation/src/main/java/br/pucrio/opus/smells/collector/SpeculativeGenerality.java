@@ -6,8 +6,8 @@ import java.util.List;
 
 import br.pucrio.opus.smells.metrics.MetricName;
 import br.pucrio.opus.smells.resources.ParenthoodRegistry;
-import br.pucrio.opus.smells.resources.Resource;
-import br.pucrio.opus.smells.resources.Type;
+import br.pucrio.opus.smells.resources.ResourceJava;
+import br.pucrio.opus.smells.resources.TypeJava;
 
 /**
  * A class declared as abstract having less than three children classes using its methods.
@@ -16,9 +16,9 @@ import br.pucrio.opus.smells.resources.Type;
 public class SpeculativeGenerality extends SmellDetector {
 	
 	@Override
-	public List<Smell> detect(Resource resource) {
+	public List<Smell> detect(ResourceJava resource) {
 		ParenthoodRegistry registry = ParenthoodRegistry.getInstance();
-		Integer childrenCount = registry.getChildrenCount((Type)resource);
+		Integer childrenCount = registry.getChildrenCount((TypeJava)resource);
 		Integer isAbstract = resource.getMetricValue(MetricName.IsAbstract).intValue();
 		if (isAbstract == 1 && childrenCount < 3) {
 			Smell smell = super.createSmell(resource);

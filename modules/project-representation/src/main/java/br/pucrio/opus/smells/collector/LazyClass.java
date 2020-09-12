@@ -6,7 +6,7 @@ import java.util.List;
 
 import br.pucrio.opus.smells.metrics.AggregateMetricValues;
 import br.pucrio.opus.smells.metrics.MetricName;
-import br.pucrio.opus.smells.resources.Resource;
+import br.pucrio.opus.smells.resources.ResourceJava;
 
 /**
  * All classes having LOCs lower than the first quartile of the distribution of LOCs for all system’s classes.
@@ -15,7 +15,7 @@ import br.pucrio.opus.smells.resources.Resource;
 public class LazyClass extends SmellDetector {
 	
 	@Override
-	public List<Smell> detect(Resource resource) {
+	public List<Smell> detect(ResourceJava resource) {
 		AggregateMetricValues aggregate = AggregateMetricValues.getInstance();
 		Double classLOC = resource.getMetricValue(MetricName.CLOC);
 		Double clocFirstQuartile = aggregate.getFirstQuartileValue(MetricName.CLOC);

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import br.pucrio.opus.smells.metrics.MetricName;
-import br.pucrio.opus.smells.resources.Resource;
+import br.pucrio.opus.smells.resources.ResourceJava;
 
 /**
  * All chains of methods’ calls longer than three.
@@ -14,7 +14,7 @@ import br.pucrio.opus.smells.resources.Resource;
 public class MessageChain extends SmellDetector {
 	
 	@Override
-	public List<Smell> detect(Resource resource) {
+	public List<Smell> detect(ResourceJava resource) {
 		Double maxCallChain = resource.getMetricValue(MetricName.MaxCallChain);
 		if (maxCallChain > 3) {
 			StringBuilder builder = new StringBuilder();

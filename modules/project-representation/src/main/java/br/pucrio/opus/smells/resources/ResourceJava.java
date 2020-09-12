@@ -14,9 +14,9 @@ import br.pucrio.opus.smells.collector.Smell;
 import br.pucrio.opus.smells.collector.SmellName;
 import br.pucrio.opus.smells.metrics.MetricName;
 
-public abstract class Resource extends Observable {
+public abstract class ResourceJava extends Observable {
 	
-	private SourceFile sourceFile;
+	private SourceFileJava sourceFile;
 	
 	private Map<MetricName, Double> metricsValues;
 	
@@ -28,7 +28,7 @@ public abstract class Resource extends Observable {
 	
 	private String kind;
 	
-	public Resource(SourceFile sourceFile, ASTNode node) {
+	public ResourceJava(SourceFileJava sourceFile, ASTNode node) {
 		this.metricsValues = new HashMap<>();
 		this.sourceFile = sourceFile;
 		this.node = node;
@@ -80,11 +80,11 @@ public abstract class Resource extends Observable {
 		this.metricsValues.put(metricName, value);
 	}
 
-	public SourceFile getSourceFile() {
+	public SourceFileJava getSourceFile() {
 		return sourceFile;
 	}
 
-	protected void setSourceFile(SourceFile sourceFile) {
+	protected void setSourceFile(SourceFileJava sourceFile) {
 		this.sourceFile = sourceFile;
 	}
 

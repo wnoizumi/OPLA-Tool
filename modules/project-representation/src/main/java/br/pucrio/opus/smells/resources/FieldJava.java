@@ -7,11 +7,11 @@ import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
-public class Field extends Resource {
+public class FieldJava extends ResourceJava {
 
 	private String name;
 
-	public Field(SourceFile sourceFile, VariableDeclarationFragment node) {
+	public FieldJava(SourceFileJava sourceFile, VariableDeclarationFragment node) {
 		super(sourceFile, node);
 		String fieldName = node.getName().toString();
 		this.setName(fieldName);

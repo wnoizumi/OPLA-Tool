@@ -14,9 +14,9 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import br.pucrio.opus.smells.ast.visitors.LocalFieldAccessCollector;
 import br.pucrio.opus.smells.ast.visitors.FieldDeclarationCollector;
 import br.pucrio.opus.smells.ast.visitors.LocalMethodCallVisitor;
-import br.pucrio.opus.smells.resources.Method;
-import br.pucrio.opus.smells.resources.Resource;
-import br.pucrio.opus.smells.resources.Type;
+import br.pucrio.opus.smells.resources.MethodJava;
+import br.pucrio.opus.smells.resources.ResourceJava;
+import br.pucrio.opus.smells.resources.TypeJava;
 
 /**
  * For performance reasons, the class assumes that all methods' smells were collected before. This is
@@ -27,9 +27,9 @@ import br.pucrio.opus.smells.resources.Type;
  */
 public class SpaghettiCode extends SmellDetector {
 	
-	private List<Method> getLongMethods(Type type) {
-		List<Method> longMethods = new ArrayList<>();
-		for (Method method : type.getMethods()) {
+	private List<MethodJava> getLongMethods(TypeJava type) {
+		List<MethodJava> longMethods = new ArrayList<>();
+		for (MethodJava method : type.getMethods()) {
 			if (method.hasSmell(SmellName.LongMethod)) {
 				longMethods.add(method);
 			}
@@ -46,10 +46,10 @@ public class SpaghettiCode extends SmellDetector {
 		return false;
 	}
 	
-	private boolean callsOtherLongMethod(List<IMethodBinding> localMethodsCalls, List<Method> longMethods, Method origin) {
+	private boolean callsOtherLongMethod(List<IMethodBinding> localMethodsCalls, List<MethodJava> longMethods, MethodJava origin) {
 		IMethodBinding originBinding = origin.getBinding();
 		for (IMethodBinding mBinding : localMethodsCalls) {
-			for (Method longMethod : longMethods) {
+			for (MethodJava longMethod : longMethods) {
 				MethodDeclaration declaration = (MethodDeclaration)longMethod.getNode(); 
 				IMethodBinding binding = declaration.resolveBinding();
 				if (binding != null && binding.equals(mBinding) && !binding.equals(originBinding)) {
@@ -65,7 +65,7 @@ public class SpaghettiCode extends SmellDetector {
 	 * @param methods list of methods
 	 * @return true if at least two methods are connected or false, otherwise
 	 */
-	private boolean areConnected(Type type, List<Method> methods) {
+	private boolean areConnected(TypeJava type, List<MethodJava> methods) {
 		Set<Object> elements = new HashSet<>();
 		TypeDeclaration typeDeclaration = type.getNodeAsTypeDeclaration();
 		
@@ -75,7 +75,7 @@ public class SpaghettiCode extends SmellDetector {
 		
 		for (int i = 0; i < methods.size(); i++) {
 			Set<Object> localElements = new HashSet<>();
-			Method method = methods.get(i);
+			MethodJava method = methods.get(i);
 			
 			//collects all calls to local methods
 			LocalMethodCallVisitor localMethodCallsVisitor = new LocalMethodCallVisitor(typeDeclaration);
@@ -105,10 +105,10 @@ public class SpaghettiCode extends SmellDetector {
 	}
 
 	@Override
-	public List<Smell> detect(Resource resource) {
-		Type type = (Type)resource;
+	public List<Smell> detect(ResourceJava resource) {
+		TypeJava type = (TypeJava)resource;
 		
-		List<Method> longMethods = this.getLongMethods(type);
+		List<MethodJava> longMethods = this.getLongMethods(type);
 		if (longMethods.size() < 2) {
 			return new ArrayList<>();
 		}

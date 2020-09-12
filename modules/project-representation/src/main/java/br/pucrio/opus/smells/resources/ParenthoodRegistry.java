@@ -42,7 +42,7 @@ public class ParenthoodRegistry {
 		return fqn;
 	}
 	
-	public boolean isChild(Type child, Type parent) {
+	public boolean isChild(TypeJava child, TypeJava parent) {
 		String childFqn = this.getQualifiedName(child.getBinding());
 		return this.getChildren(parent).contains(childFqn);
 	} 
@@ -83,7 +83,7 @@ public class ParenthoodRegistry {
 		return classAncestors;
 	}
 	
-	public boolean isDescendant(Type type, Type ancestor) {
+	public boolean isDescendant(TypeJava type, TypeJava ancestor) {
 		ITypeBinding ancestorBinding = ancestor.getBinding();
 		ITypeBinding typeBinding = type.getBinding();
 		if (ancestorBinding == null || typeBinding == null || typeBinding == ancestorBinding) {
@@ -93,7 +93,7 @@ public class ParenthoodRegistry {
 		return ancestors.contains(getQualifiedName(ancestorBinding));
 	}
 	
-	public Set<String> getAncestors(Type type) {
+	public Set<String> getAncestors(TypeJava type) {
 		ITypeBinding typeBinding = type.getBinding();
 		if (typeBinding == null) {
 			return new HashSet<>();
@@ -126,7 +126,7 @@ public class ParenthoodRegistry {
 	 * Get the type parent and register its new child
 	 * @param child the child
 	 */
-	public void registerChild(Type child) {
+	public void registerChild(TypeJava child) {
 		ITypeBinding childBinding = child.getBinding();
 		if (childBinding == null) {
 			return;
@@ -150,7 +150,7 @@ public class ParenthoodRegistry {
 		this.ancestorsMap.clear();
 	}
 	
-	public Integer getChildrenCount(Type type) {
+	public Integer getChildrenCount(TypeJava type) {
 		ITypeBinding binding = type.getBinding();
 		if (binding == null) {
 			return 0;
@@ -163,7 +163,7 @@ public class ParenthoodRegistry {
 		return 0;
 	}
 	
-	private Set<String> getChildren(Type type) {
+	private Set<String> getChildren(TypeJava type) {
 		ITypeBinding binding = type.getBinding();
 		return this.getChildren(binding);
 	}

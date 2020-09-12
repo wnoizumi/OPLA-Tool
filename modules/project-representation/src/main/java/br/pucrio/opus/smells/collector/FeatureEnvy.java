@@ -9,8 +9,8 @@ import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 
 import br.pucrio.opus.smells.ast.visitors.ClassMethodInvocationVisitor;
-import br.pucrio.opus.smells.resources.Method;
-import br.pucrio.opus.smells.resources.Resource;
+import br.pucrio.opus.smells.resources.MethodJava;
+import br.pucrio.opus.smells.resources.ResourceJava;
 
 /**
  * Feature envy: All methods having more calls with another class than the one they are implemented.
@@ -19,8 +19,8 @@ import br.pucrio.opus.smells.resources.Resource;
 public class FeatureEnvy extends SmellDetector {
 	
 	@Override
-	public List<Smell> detect(Resource resource) {
-		Method method = (Method)resource;
+	public List<Smell> detect(ResourceJava resource) {
+		MethodJava method = (MethodJava)resource;
 		IMethodBinding methodBinding = method.getBinding();
 		if (methodBinding == null) {
 			//TODO LOG!

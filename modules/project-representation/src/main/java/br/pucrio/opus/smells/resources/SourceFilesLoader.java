@@ -14,7 +14,7 @@ import br.pucrio.opus.smells.util.SourceFileASTRequestor;
 
 public class SourceFilesLoader {
 
-	private List<SourceFile> sourceFiles;
+	private List<SourceFileJava> sourceFiles;
 	
 	private JavaFilesFinder loader;
 	
@@ -50,7 +50,7 @@ public class SourceFilesLoader {
 		this.sourceFiles = requestor.getSourceFiles();		
 	}
 	
-	public List<SourceFile> getLoadedSourceFiles() {
+	public List<SourceFileJava> getLoadedSourceFiles() {
 		return sourceFiles;
 	}
 	

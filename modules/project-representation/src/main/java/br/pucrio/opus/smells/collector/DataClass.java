@@ -6,7 +6,7 @@ import java.util.List;
 
 import br.pucrio.opus.smells.metrics.MetricName;
 import br.pucrio.opus.smells.metrics.Thresholds;
-import br.pucrio.opus.smells.resources.Resource;
+import br.pucrio.opus.smells.resources.ResourceJava;
 
 /**
  * A data class refers to a class that contains only fields and crude methods 
@@ -18,7 +18,7 @@ import br.pucrio.opus.smells.resources.Resource;
 public class DataClass extends SmellDetector {
 	
 	@Override
-	public List<Smell> detect(Resource resource) {
+	public List<Smell> detect(ResourceJava resource) {
 		Double highWmc = Thresholds.getHighThreshold(MetricName.WMC);
 		Double veryHighWmc = Thresholds.getVeryHighThreshold(MetricName.WMC);
 		

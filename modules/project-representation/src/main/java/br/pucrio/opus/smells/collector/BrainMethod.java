@@ -6,7 +6,7 @@ import java.util.List;
 
 import br.pucrio.opus.smells.metrics.MetricName;
 import br.pucrio.opus.smells.metrics.Thresholds;
-import br.pucrio.opus.smells.resources.Resource;
+import br.pucrio.opus.smells.resources.ResourceJava;
 
 /**
  * Brain Methods tend to centralize the functionality of a class.
@@ -15,7 +15,7 @@ import br.pucrio.opus.smells.resources.Resource;
 public class BrainMethod extends SmellDetector {
 	
 	@Override
-	public List<Smell> detect(Resource resource) {
+	public List<Smell> detect(ResourceJava resource) {
 		Double halfHighCLOC = Thresholds.getHighThreshold(MetricName.CLOC)/2;
 		Double highCC = Thresholds.getHighThreshold(MetricName.CC);
 		

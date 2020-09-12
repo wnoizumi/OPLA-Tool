@@ -6,9 +6,9 @@ import java.util.List;
 
 import br.pucrio.opus.smells.metrics.MetricName;
 import br.pucrio.opus.smells.metrics.Thresholds;
-import br.pucrio.opus.smells.resources.Method;
-import br.pucrio.opus.smells.resources.Resource;
-import br.pucrio.opus.smells.resources.Type;
+import br.pucrio.opus.smells.resources.MethodJava;
+import br.pucrio.opus.smells.resources.ResourceJava;
+import br.pucrio.opus.smells.resources.TypeJava;
 
 /**
  * This design disharmony is about complex classes that tend to accumulate 
@@ -21,9 +21,9 @@ import br.pucrio.opus.smells.resources.Type;
  */
 public class BrainClass extends SmellDetector {
 	
-	private List<Method> getBrainMethods(Type type) {
-		List<Method> brainMethods = new ArrayList<>();
-		for (Method method : type.getMethods()) {
+	private List<MethodJava> getBrainMethods(TypeJava type) {
+		List<MethodJava> brainMethods = new ArrayList<>();
+		for (MethodJava method : type.getMethods()) {
 			if (method.hasSmell(SmellName.BrainMethod)) {
 				brainMethods.add(method);
 			}
@@ -32,12 +32,12 @@ public class BrainClass extends SmellDetector {
 	}
 	
 	@Override
-	public List<Smell> detect(Resource resource) {
+	public List<Smell> detect(ResourceJava resource) {
 		Double veryHighCloc = Thresholds.getVeryHighThreshold(MetricName.CLOC);
 		Double veryHighWMC = Thresholds.getVeryHighThreshold(MetricName.WMC);
 		
 		
-		Type type = (Type)resource;
+		TypeJava type = (TypeJava)resource;
 		Integer brainMethodCount = this.getBrainMethods(type).size();
 		Double loc = resource.getMetricValue(MetricName.CLOC);
 		Double wmc = resource.getMetricValue(MetricName.WMC);

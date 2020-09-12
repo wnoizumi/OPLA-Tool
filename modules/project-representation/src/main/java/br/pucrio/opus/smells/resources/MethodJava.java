@@ -12,7 +12,7 @@ import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import br.pucrio.opus.smells.ast.visitors.MethodInvocationVisitor;
 import br.pucrio.opus.smells.graph.CallGraph;
 
-public class Method extends Resource {
+public class MethodJava extends ResourceJava {
 	
 	private List<String> parametersTypes;
 	
@@ -79,7 +79,7 @@ public class Method extends Resource {
 		
 	}
 	
-	public Method(SourceFile sourceFile, MethodDeclaration node) {
+	public MethodJava(SourceFileJava sourceFile, MethodDeclaration node) {
 		super(sourceFile, node);
 		this.registerOnCallGraph(node);
 		

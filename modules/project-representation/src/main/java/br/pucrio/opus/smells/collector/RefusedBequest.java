@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import br.pucrio.opus.smells.metrics.MetricName;
-import br.pucrio.opus.smells.resources.Resource;
+import br.pucrio.opus.smells.resources.ResourceJava;
 
 /**
  * All classes overriding more than half of the methods inherited by a superclass
@@ -14,7 +14,7 @@ import br.pucrio.opus.smells.resources.Resource;
 public class RefusedBequest extends SmellDetector {
 	
 	@Override
-	public List<Smell> detect(Resource resource) {
+	public List<Smell> detect(ResourceJava resource) {
 		Double overrideRatio = resource.getMetricValue(MetricName.OverrideRatio);
 		if (overrideRatio != null && overrideRatio > 0.5) {
 			StringBuilder builder = new StringBuilder();

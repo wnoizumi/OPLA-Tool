@@ -6,7 +6,7 @@ import java.util.List;
 import org.eclipse.jdt.core.dom.ASTNode;
 
 import br.pucrio.opus.smells.metrics.calculators.MetricValueCalculator;
-import br.pucrio.opus.smells.resources.Resource;
+import br.pucrio.opus.smells.resources.ResourceJava;
 
 public abstract class MetricValueCollector {
 	
@@ -20,7 +20,7 @@ public abstract class MetricValueCollector {
 		this.calculators.add(calculator);
 	}
 	
-	public void collect(Resource resource) {
+	public void collect(ResourceJava resource) {
 		for (MetricValueCalculator calculator : this.calculators) {
 			ASTNode node = resource.getNode();
 			Double value = calculator.getValue(node);

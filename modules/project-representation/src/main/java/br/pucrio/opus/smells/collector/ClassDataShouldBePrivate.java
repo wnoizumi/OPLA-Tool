@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import br.pucrio.opus.smells.metrics.MetricName;
-import br.pucrio.opus.smells.resources.Resource;
+import br.pucrio.opus.smells.resources.ResourceJava;
 
 /**
  * Class data should be private: A class having at least one public field.
@@ -14,7 +14,7 @@ import br.pucrio.opus.smells.resources.Resource;
 public class ClassDataShouldBePrivate extends SmellDetector {
 	
 	@Override
-	public List<Smell> detect(Resource resource) {
+	public List<Smell> detect(ResourceJava resource) {
 		Double publicFieldCount = resource.getMetricValue(MetricName.PublicFieldCount);
 		if (publicFieldCount != null && publicFieldCount >= 1) {
 			StringBuilder builder = new StringBuilder();

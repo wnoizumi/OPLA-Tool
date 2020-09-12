@@ -6,7 +6,7 @@ import java.util.List;
 
 import br.pucrio.opus.smells.metrics.AggregateMetricValues;
 import br.pucrio.opus.smells.metrics.MetricName;
-import br.pucrio.opus.smells.resources.Resource;
+import br.pucrio.opus.smells.resources.ResourceJava;
 
 /**
  * All classes having (i) cohesion lower than the average of the system AND (ii) LOCs > 500
@@ -15,7 +15,7 @@ import br.pucrio.opus.smells.resources.Resource;
 public class GodClass extends SmellDetector {
 	
 	@Override
-	public List<Smell> detect(Resource resource) {
+	public List<Smell> detect(ResourceJava resource) {
 		AggregateMetricValues aggregate = AggregateMetricValues.getInstance();
 		Double classLOC = resource.getMetricValue(MetricName.CLOC);
 		Double classTCC = resource.getMetricValue(MetricName.TCC);
