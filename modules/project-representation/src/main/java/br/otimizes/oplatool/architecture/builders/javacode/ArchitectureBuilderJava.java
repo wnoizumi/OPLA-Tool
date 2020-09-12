@@ -4,14 +4,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
+
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Attribute;
 import br.otimizes.oplatool.architecture.representation.Class;
-import br.otimizes.oplatool.architecture.representation.Element;
 import br.otimizes.oplatool.architecture.representation.Interface;
+import br.otimizes.oplatool.architecture.representation.Method;
 import br.otimizes.oplatool.architecture.representation.Package;
+import br.otimizes.oplatool.architecture.representation.ParameterMethod;
 import br.pucrio.opus.smells.resources.FieldJava;
 import br.pucrio.opus.smells.resources.JavaFilesFinder;
+import br.pucrio.opus.smells.resources.MethodJava;
 import br.pucrio.opus.smells.resources.SourceFileJava;
 import br.pucrio.opus.smells.resources.SourceFilesLoader;
 import br.pucrio.opus.smells.resources.TypeJava;
@@ -27,7 +31,6 @@ public class ArchitectureBuilderJava {
 
 		createPackages(architecture, allTypes);
 		createClassesAndInterfaces(architecture, allTypes);
-
 
 		return architecture;
 	}
@@ -52,10 +55,24 @@ public class ArchitectureBuilderJava {
 			Package _package = architecture.findPackageByName(packageName);
 			_package.addExternalClass(klass);
 		}
-		
+
 		for (FieldJava field : type.getFields()) {
-			Attribute attribute = new Attribute(field.getName(), field.getVisibility(), field.getType(), null, field.getFullyQualifiedName()); 
+			Attribute attribute = new Attribute(field.getName(), field.getVisibility(), field.getType(), null,
+					field.getFullyQualifiedName());
 			klass.addExternalAttribute(attribute);
+		}
+
+		// TODO: tratar sobrecarga de metodos
+		for (MethodJava methodJava : type.getMethods()) {
+			List<ParameterMethod> parameters = new ArrayList<>();
+			for (SingleVariableDeclaration paramJava : methodJava.getParametersJava()) {
+				ParameterMethod param = new ParameterMethod(paramJava.getName().toString(),
+						paramJava.getType().toString(), "in");
+				parameters.add(param);
+			}
+			Method method = new Method(methodJava.getName(), methodJava.getReturnType(), methodJava.isAbstract(),
+					parameters, null, methodJava.getFullyQualifiedName());
+			klass.addExternalMethod(method);
 		}
 	}
 
@@ -69,10 +86,24 @@ public class ArchitectureBuilderJava {
 			Package _package = architecture.findPackageByName(packageName);
 			_package.addExternalInterface(_interface);
 		}
-		
+
 		for (FieldJava field : type.getFields()) {
-			Attribute attribute = new Attribute(field.getName(), field.getVisibility(), field.getType(), null, field.getFullyQualifiedName()); 
+			Attribute attribute = new Attribute(field.getName(), field.getVisibility(), field.getType(), null,
+					field.getFullyQualifiedName());
 			_interface.addExternalAttribute(attribute);
+		}
+
+		// TODO: tratar sobrecarga de metodos
+		for (MethodJava methodJava : type.getMethods()) {
+			List<ParameterMethod> parameters = new ArrayList<>();
+			for (SingleVariableDeclaration paramJava : methodJava.getParametersJava()) {
+				ParameterMethod param = new ParameterMethod(paramJava.getName().toString(),
+						paramJava.getType().toString(), "in");
+				parameters.add(param);
+			}
+			Method method = new Method(methodJava.getName(), methodJava.getReturnType(), methodJava.isAbstract(),
+					parameters, null, methodJava.getFullyQualifiedName());
+			_interface.addExternalMethod(method);
 		}
 	}
 

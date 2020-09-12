@@ -7,6 +7,7 @@ import java.util.List;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Attribute;
 import br.otimizes.oplatool.architecture.representation.Class;
+import br.otimizes.oplatool.architecture.representation.Method;
 
 public class ArchitectureBuilderManualTest {
 
@@ -21,7 +22,6 @@ public class ArchitectureBuilderManualTest {
 //			for (br.otimizes.oplatool.architecture.representation.Package pkg : architecture.getAllPackages()) {
 //				System.out.println(pkg.getName());
 //			}
-//			System.out.println("------------------------------------------------");
 			System.out.println("Classes:");
 			for (Class c : architecture.getAllClasses()) {
 				System.out.println(c.getName());
@@ -29,6 +29,12 @@ public class ArchitectureBuilderManualTest {
 				for (Attribute attribute : c.getAllAttributes()) {
 					System.out.println(attribute.getType() + " " + attribute.getName());
 				}
+				System.out.println("------------------------------------------------");
+				System.out.println("Methods:");
+				for(Method method : c.getAllMethods()) {
+					System.out.println(method.getReturnType() + " " + method.getName());
+				}
+				System.out.println("================================================");
 			}
 			
 		} catch (IOException e) {

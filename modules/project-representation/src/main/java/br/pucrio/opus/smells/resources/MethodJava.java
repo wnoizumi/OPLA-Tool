@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.eclipse.jdt.core.dom.IBinding;
 import org.eclipse.jdt.core.dom.IMethodBinding;
+import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
@@ -102,9 +103,43 @@ public class MethodJava extends ResourceJava {
 		return parametersTypes;
 	}
 	
+	public List<SingleVariableDeclaration> getParametersJava() {
+		return ((MethodDeclaration)getNode()).parameters();
+	}
+	
 	@Override
 	public String toString() {
 		return "Method [fqn=" + getFullyQualifiedName() + "]";
+	}
+
+	public String getName() {
+		MethodDeclaration declaration = (MethodDeclaration)this.getNode();
+		return declaration.getName().toString();
+	}
+
+	public String getReturnType() {
+		MethodDeclaration declaration = (MethodDeclaration)this.getNode();
+		if (declaration.getReturnType2() != null) {
+			ITypeBinding typeBinding = declaration.getReturnType2().resolveBinding();
+			return typeBinding.getQualifiedName();
+		}
+		else
+			return "void";
+	}
+
+	public boolean isAbstract() {
+		MethodDeclaration declaration = (MethodDeclaration)this.getNode();
+		
+		if (declaration.getBody() == null)
+			return true;
+		
+		int modifiers = declaration.getModifiers(); 
+		
+		if (Modifier.isAbstract(modifiers)) {
+			return true;
+		}
+		
+		return false;
 	}
 	
 }

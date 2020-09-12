@@ -15,7 +15,7 @@ public class ParameterMethod {
     /**
      * @param name      - Name
      * @param type      - Tipo (ex: String)
-     * @param direction - in ou out. In = entrada, out = saida
+     * @param direction - in ou out. in = entrada, out = saida
      */
     public ParameterMethod(String name, String type, String direction) {
         this.name = name;
